@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>groupTest</title>
+</head>
+<style>
+	#results li.pass {
+		color: green;
+	}
+	#results li.fail{
+		color: red;
+	}
+</style>
+<body>
+  <div id="results"></div>
+</body>
+</html>
+<script>
+  var results  = document.getElementById("results");
+  window.assert = function assert(value ,desc){
+	  var li = document.createElement("li");
+	  li.className = value ? "pass" : "fail";
+	  li.innerText = desc;
+//		  if(!value){
+//			  li.parentNode.className = "fail";
+//		  }
+	  return li
+  }
+  window.test = function(name, fun){
+	  var ul= document.createElement("ul");
+	  var p = document.createElement("p");
+	  p.innerText = name;
+	  ul.appendChild(p);
+	  var liList = fun();
+	  liList.forEach(li=>{
+		  if(~li.class.indexOf("fail"))  ul.class = "fail"
+		  ul.appendChild(li);
+	  });
+	  results.appendChild(ul);
+  }
+
+	window.onload = function () {
+		test("A test", function(){
+			return [
+				assert(true, "First complated"),
+			  assert(true, "Second complated"),
+			  assert(true, "Third complated")
+			]
+		});
+		test("Another test", function(){
+			return [
+				assert(true, "First complated"),
+				assert(false, "Second failed"),
+				assert(true, "Third complated")
+			]
+		});
+		test("A third test", function(){
+			return [
+				assert(true, "First complated"),
+				assert(false, "Second failed"),
+				assert(true, "Third complated")
+			]
+		});
+	}
+</script>
